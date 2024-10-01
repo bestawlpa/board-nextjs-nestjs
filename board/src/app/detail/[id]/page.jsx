@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import DetailPost from "@/app/component/page/Detail/DetailPost";
 import DetailComment from "@/app/component/page/Detail/DetailComment";
+import FetchComment from "@/app/component/page/Detail/FetchComment";
 
 export default function Detail({ params }) {
   const { data: session } = useSession();
@@ -138,39 +139,7 @@ export default function Detail({ params }) {
                 handleAddComment={handleAddComment}
                 error={error}
               />
-
-              <div
-                id="comment"
-                className=" w-[1000px] mt-36 pb-32 bg-[#FFFFFF]"
-              >
-                {fetchComment.map((e) => (
-                  <div
-                    key={e._id}
-                    className=" w-[1000px] h-[150px] my-10 text-[#191919] "
-                  >
-                    <div className=" w-[300px] h-[70px] ">
-                      <div className=" flex items-center justify-between">
-                        <img
-                          src={e.urlImg}
-                          alt=""
-                          className=" w-[70px] h-[70px] rounded-full object-cover shadow-xl"
-                        />
-                        <div className=" w-[200px] text-3xl font-semibold">
-                          <h1>{e.username}</h1>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className=" w-[1000px] [80px] flex justify-end">
-                      <div className=" w-[910px] h-[100px] ">
-                        <h1 className=" text-xl overflow-y-auto max-h-[160px] whitespace-normal break-words">
-                          {e.comment}
-                        </h1>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <FetchComment fetchComment={fetchComment} />
             </div>
           </div>
         </div>
@@ -206,35 +175,7 @@ export default function Detail({ params }) {
             error={error}
             commentOpent={commentOpent}
           />
-          <div id="comment" className=" px-4 mt-40 pb-32 bg-[#FFFFFF]">
-            {fetchComment.map((e) => (
-              <div
-                key={e._id}
-                className=" w-[1000px] h-[150px] my-2 text-[#191919] "
-              >
-                <div className=" w-[280px] h-[70px] ">
-                  <div className=" flex items-center justify-between">
-                    <img
-                      src={e.urlImg}
-                      alt=""
-                      className=" w-[60px] h-[60px] rounded-full object-cover shadow-xl"
-                    />
-                    <div className=" w-[200px] text-3xl font-semibold">
-                      <h1>{e.username}</h1>
-                    </div>
-                  </div>
-                </div>
-
-                <div className=" w-[1000px] [80px] flex justify-end">
-                  <div className=" w-[920px] h-[100px] ">
-                    <h1 className=" text-xl overflow-y-auto max-h-[160px] whitespace-normal break-words">
-                      {e.comment}
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <FetchComment fetchComment={fetchComment} />
         </div>
       )}
     </div>

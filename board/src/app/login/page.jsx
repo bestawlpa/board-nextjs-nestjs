@@ -140,14 +140,3 @@ export default function Login() {
     </div>
   );
 }
-
-// const [hydrated, setHydrated] = useState(false);
-
-// useEffect(() => {
-//   console.log("Effect ran");
-//   setHydrated(true);
-// }, []);
-
-// if (!hydrated) {
-//   return null;
-// }

@@ -40,10 +40,10 @@ export default function Blog() {
   const [editCommunity, setEditCommunity] = useState("");
 
   // ถ้าไม่มี session จะส่งไปหน้า HOme
-  // if (!session) {
-  //   router.push("/");
-  //   return;
-  // }
+  if (!session) {
+    router.push("/");
+    return;
+  }
 
   //-- ใช้เก็บ postId
   const [currentPost, setCurrentPost] = useState(null);

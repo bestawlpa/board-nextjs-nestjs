@@ -6,6 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import SidebarLeft from "@/app/component/SidebarLeft";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import DetailPost from "@/app/component/page/DetailPost";
 
 export default function Detail({ params }) {
   const { data: session } = useSession();
@@ -119,44 +120,55 @@ export default function Detail({ params }) {
               </div>
 
               <div className=" w-[1000px] flex flex-col items-start  py-4 mt-10">
-                <div className=" w-[1000px] h-[80px] flex items-center">
-                  <div className=" w-[300px] flex items-center justify-between">
-                    <img
-                      src={post.urlImg}
-                      alt=""
-                      className=" w-[80px] h-[80px] rounded-full object-cover"
-                    />
-                    <div className=" w-[200px]">
-                      <h1 className=" text-2xl font-medium">{post.username}</h1>
+                <div>
+                  <DetailPost
+                    urlImg={post.urlImg}
+                    username={post.username}
+                    community={post.community}
+                    title={post.title}
+                    text={post.text}
+                    filteredCommentCount={filteredCommentCount}
+                  />
+                  {/* <div className=" w-[1000px] h-[80px] flex items-center">
+                    <div className=" w-[300px] flex items-center justify-between">
+                      <img
+                        src={post.urlImg}
+                        alt=""
+                        className=" w-[80px] h-[80px] rounded-full object-cover"
+                      />
+                      <div className=" w-[200px]">
+                        <h1 className=" text-2xl font-medium">
+                          {post.username}
+                        </h1>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="w-[1000px] flex items-center h-[60px]">
-                  <div className=" w-[80px] h-[40px] flex justify-center items-center rounded-3xl bg-[#f3f3f3] text-[#4A4A4A]">
-                    <h1>{post.community}</h1>
+                  <div className="w-[1000px] flex items-center h-[60px]">
+                    <div className=" w-[80px] h-[40px] flex justify-center items-center rounded-3xl bg-[#f3f3f3] text-[#4A4A4A]">
+                      <h1>{post.community}</h1>
+                    </div>
                   </div>
-                </div>
-                <div className=" w-[1000px] h-[40px] text-3xl flex items-center  mt-4">
-                  <h1>{post.title}</h1>
-                </div>
-                <div className=" w-[1000px] mt-4 flex flex-col text-[#191919]">
-                  <h1 className=" overflow-y-auto max-h-[200px] whitespace-normal break-words">
-                    {post.text}
-                  </h1>
-                </div>
-                <div className=" h-[25px] w-[1000px] my-4 text-[#939494]">
-                  <div className=" w-[120px] font-semibold h-[25px] flex justify-between items-center ">
-                    <img
-                      src="/comment-svgrepo-com.svg"
-                      alt=""
-                      className=" w-[25px] h-[25px]"
-                    />
-                    <h1>{filteredCommentCount}</h1>
-                    <h1>Comment</h1>
+                  <div className=" w-[1000px] h-[40px] text-3xl flex items-center  mt-4">
+                    <h1>{post.title}</h1>
                   </div>
+                  <div className=" w-[1000px] mt-4 flex flex-col text-[#191919]">
+                    <h1 className=" overflow-y-auto max-h-[200px] whitespace-normal break-words">
+                      {post.text}
+                    </h1>
+                  </div>
+                  <div className=" h-[25px] w-[1000px] my-4 text-[#939494]">
+                    <div className=" w-[120px] font-semibold h-[25px] flex justify-between items-center ">
+                      <img
+                        src="/comment-svgrepo-com.svg"
+                        alt=""
+                        className=" w-[25px] h-[25px]"
+                      />
+                      <h1>{filteredCommentCount}</h1>
+                      <h1>Comment</h1>
+                    </div>
+                  </div> */}
                 </div>
               </div>
-
               <div className=" w-[1000px] h-[50px]  text-[#49a569] relative">
                 <button
                   onClick={handleOpenComment}
@@ -200,7 +212,6 @@ export default function Detail({ params }) {
                   </div>
                 )}
               </div>
-
               <div
                 id="comment"
                 className=" w-[1000px] mt-36 pb-32 bg-[#FFFFFF]"
@@ -251,8 +262,15 @@ export default function Detail({ params }) {
               </Link>
             </div>
           </div>
-
-          <div className=" w-full flex flex-col items-start  mt-10">
+          <DetailPost
+            urlImg={post.urlImg}
+            username={post.username}
+            community={post.community}
+            title={post.title}
+            text={post.text}
+            filteredCommentCount={filteredCommentCount}
+          />
+          {/* <div className=" w-full flex flex-col items-start  mt-10">
             <div className=" w-full h-[80px] flex items-center">
               <div className=" w-[300px] flex items-center justify-between">
                 <img
@@ -289,7 +307,7 @@ export default function Detail({ params }) {
                 <h1>Comment</h1>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className=" w-[1000px] h-[50px] mt-8 text-[#49a569] relative">
             <button

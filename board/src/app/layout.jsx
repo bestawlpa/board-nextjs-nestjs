@@ -10,9 +10,14 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
   const hiddenRoutes = ["/login", "/register"];
   const hydrated = useHydrated();
+  console.log("Is hydrated:", hydrated);
 
   if (!hydrated) {
-    return null;
+    return (
+      <div className=" w-screen h-screen flex items-center justify-center">
+        <span class="loader"></span>
+      </div>
+    );
   }
 
   return (

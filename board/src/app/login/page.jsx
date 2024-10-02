@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const isPC = useMediaQuery({ minWidth: 1024 });
   const [username, setUsername] = useState("Something");
+  const [error, setError] = useState("");
   const router = useRouter();
   const { data: session } = useSession();
   console.log(session, "data");
@@ -28,7 +29,10 @@ export default function Login() {
       });
 
       if (res.error) {
-        setError("Invalid credentials");
+        setError("Don't have username!");
+        setTimeout(() => {
+          setError("");
+        }, 2000);
         return;
       }
     } catch (error) {
@@ -71,6 +75,11 @@ export default function Login() {
                   </Link>
                 </div>
               </div>
+              {error && (
+                <div className=" relative bottom-60 w-full flex justify-center text-3xl text-red-600">
+                  {error}
+                </div>
+              )}
             </div>
           </div>
           {/*  */}
@@ -133,6 +142,11 @@ export default function Login() {
                   </Link>
                 </div>
               </div>
+              {error && (
+                <div className=" relative bottom-60 text-3xl w-full flex justify-center text-red-600">
+                  {error}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ const DetailComment = (props) => {
   return (
     <div>
       {isPC ? (
-        <div className=" w-[1000px] h-[50px]  text-[#49a569] relative">
+        <div className=" w-[700px] h-[50px]  text-[#49a569] relative">
           <button
             onClick={handleOpenComment}
             className=" w-[150px] h-[50px] rounded-lg border-2 border-[#49a569] "
@@ -24,8 +24,8 @@ const DetailComment = (props) => {
           </button>
 
           {isComment && (
-            <div className=" w-[1000px]  flex flex-col h-[200px]  absolute left-0 -top-2">
-              <div className=" w-[1000px] h-[300px] border-2 border-[#dadada] rounded-lg overflow-hidden ">
+            <div className=" w-[700px]  flex flex-col h-[200px]  absolute left-0 -top-2">
+              <div className=" w-[700px] h-[300px] border-2 border-[#dadada] rounded-lg overflow-hidden ">
                 <textarea
                   type="text"
                   value={comment}
@@ -34,7 +34,7 @@ const DetailComment = (props) => {
                   className=" w-[997px] h-[200px] outline-none flex p-2 resize-none"
                 />
               </div>
-              <div className=" mt-4 w-[1000px] h-[70px]  flex justify-end items-center">
+              <div className=" mt-4 w-[700px] h-[70px]  flex justify-end items-center">
                 <div className=" w-[220px] flex justify-between">
                   <button
                     onClick={handleOpenComment}

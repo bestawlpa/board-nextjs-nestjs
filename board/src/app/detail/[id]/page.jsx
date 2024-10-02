@@ -22,6 +22,8 @@ export default function Detail({ params }) {
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [filteredCommentCount, setFilteredCommentCount] = useState(0);
+  const [successDelete, setSuccessDelete] = useState("");
+  const [successDeleteOpen, setSuccessDeleteOpen] = useState(false);
 
   useEffect(() => {
     const getPost = async () => {
@@ -36,6 +38,34 @@ export default function Detail({ params }) {
     };
     getPost();
   }, []);
+
+  const handleDeletePostOpen = () => {
+    setSuccessDeleteOpen(!successDeleteOpen);
+  };
+
+  const handleDeletePost = async (postId) => {
+    try {
+      const res = await fetch(`${apiUrl}/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete post");
+      }
+      setSuccessDelete("Post deleted successfully");
+      handleDeletePostOpen(!successDeleteOpen);
+      setTimeout(() => {
+        setSuccessDelete("");
+        handleDeletePostOpen(!successDeleteOpen);
+        router.push("/");
+      }, 2000);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
 
   const handleOpenComment = () => {
     setisComment(!isComment);
@@ -105,10 +135,10 @@ export default function Detail({ params }) {
   return (
     <div>
       {isPC ? (
-        <div className="w-screen h-screen  flex ">
+        <div className="w-screen h-screen flex ">
           <SidebarLeft />
-          <div className=" w-full min-h-full bg-[#FFFFFF] pb-32 pt-8 flex flex-col justify-center items-center overflow-y-auto">
-            <div className=" w-[1000px]  h-full bg-[#FFFFFF]">
+          <div className=" w-full min-h-full px-24 pb-32 pt-12 flex flex-col justify-center items-center overflow-y-auto">
+            <div className=" w-[700px]  h-full bg-[#FFFFFF]">
               <div className=" h-[60px] ">
                 <Link href={"/"}>
                   <div className=" w-[60px] h-[60px] rounded-full flex items-center justify-center bg-[#d8e9e4]">
@@ -121,7 +151,7 @@ export default function Detail({ params }) {
                 </Link>
               </div>
 
-              <div className=" w-[1000px] flex flex-col items-start  py-4 mt-10">
+              <div className=" w-[700px] flex flex-col items-start  py-4 mt-10">
                 <DetailPost
                   urlImg={post.urlImg}
                   username={post.username}
@@ -129,8 +159,19 @@ export default function Detail({ params }) {
                   title={post.title}
                   text={post.text}
                   filteredCommentCount={filteredCommentCount}
+                  postUserId={post.userId}
+                  currentUserId={session?.user._id}
+                  postId={post._id}
+                  handleDeletePost={handleDeletePost}
+                  successDelete={successDelete}
                 />
               </div>
+              {successDeleteOpen && (
+                <div
+                  className="  fixed inset-0 bg-black opacity-50 z-10"
+                  onClick={handleDeletePostOpen}
+                />
+              )}
               <DetailComment
                 handleOpenComment={handleOpenComment}
                 isComment={isComment}
@@ -165,7 +206,19 @@ export default function Detail({ params }) {
             title={post.title}
             text={post.text}
             filteredCommentCount={filteredCommentCount}
+            postUserId={post.userId}
+            currentUserId={session?.user._id}
+            postId={post._id}
+            handleDeletePost={handleDeletePost}
+            successDelete={successDelete}
           />
+          {successDeleteOpen && (
+            <div
+              className="  fixed inset-0 bg-black opacity-50 z-10"
+              onClick={handleDeletePostOpen}
+            />
+          )}
+
           <DetailComment
             handleOpenComment={handleOpenComment}
             isComment={isComment}
